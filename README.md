@@ -1,2 +1,4 @@
 # Actividad-2
-4 de Mayo - Escalante, González R, González T y Pappolla
+-Fecha de entrega: 4 de Mayo  
+
+-Alumnas: Escalante, González R, González T y Pappolla
