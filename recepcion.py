@@ -66,8 +66,18 @@ def lista_visitantes_en_institucion ():
     conn.close()
 
 
-def busca_vistantes(fecha_desde, fecha_hasta, destino, dni):
+def busca_vistantes(dni):
     """ busca visitantes segun criterios """
+    
+    conn = sqlite3.connect('recepcion.db')
+    q = f"""SELECT * FROM personas WHERE dni = '{dni};"""
+
+    resu = conn.execute(q)
+    
+    for fila in resu:
+        print(fila)
+    conn.close()
+
     pass
 
 
@@ -119,5 +129,3 @@ if __name__ == '__main__':
     """
     
     # lista_visitantes_en_institucion()
-    
-
