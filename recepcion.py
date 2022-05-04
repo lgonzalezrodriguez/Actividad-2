@@ -41,13 +41,14 @@ def ingresa_visita(persona):
     conn.close()
     
 
-def egresa_visita (dni, persona):
+
+def egresa_visita (dni):
    
     conn = sqlite3.connect('recepcion.db')
 
-    egreso = {persona.datetime.datetime.now().replace(microsecond=0).isoformat()}
+    egreso = datetime.datetime.now().replace(microsecond=0).isoformat()
     
-    conn.execute("UPDATE ingresos_egresos SET fechahora_out = VALUES('{egreso}') WHERE dni = {dni}")
+    conn.execute(f"UPDATE ingresos_egresos SET fechahora_out = VALUES ('{egreso}')  WHERE dni = ('{dni}')")
     conn.commit()
 
     conn.close()
@@ -68,17 +69,16 @@ def lista_visitantes_en_institucion ():
 
 def busca_vistantes(dni):
     """ busca visitantes segun criterios """
-    
     conn = sqlite3.connect('recepcion.db')
-    q = f"""SELECT * FROM personas WHERE dni = '{dni};"""
-
+    q = f"""SELECT * FROM personas WHERE dni= ('{dni}');'"""
     resu = conn.execute(q)
-    
+
     for fila in resu:
         print(fila)
     conn.close()
+     
 
-    pass
+    conn.close()
 
 
 def iniciar():
