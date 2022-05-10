@@ -40,8 +40,6 @@ def ingresa_visita(persona):
         conn.commit()
     conn.close()
     
-
-
 def egresa_visita (dni):
    
     conn = sqlite3.connect('recepcion.db')
@@ -67,17 +65,49 @@ def lista_visitantes_en_institucion ():
     conn.close()
 
 
-def busca_vistantes(dni):
+def busca_vistantes(dni, fechahora_in, fechahora_out, destino):
     """ busca visitantes segun criterios """
     conn = sqlite3.connect('recepcion.db')
-    q = f"""SELECT * FROM personas WHERE dni= ('{dni}');'"""
+    q = f"""SELECT dni FROM ingresos_egresos WHERE dni = '{dni}'"""
+
     resu = conn.execute(q)
+
+    if resu.fetchone():
+        print("ya existe")
 
     for fila in resu:
         print(fila)
-    conn.close()
-     
 
+    q = f"""SELECT fechahora_in FROM ingresos_egresos WHERE fechahora_in = '{fechahora_in}'"""
+
+    resu = conn.execute(q)
+
+    if resu.fetchone():
+        print("ya existe")
+    
+    for fila in resu:
+        print(fila)
+
+    q = f"""SELECT fechahora_out FROM ingresos_egresos WHERE fechahora_out = '{fechahora_out}'"""
+
+    resu = conn.execute(q)
+
+    if resu.fetchone():
+        print("ya existe")
+
+    for fila in resu:
+        print(fila)
+
+    q = f"""SELECT destino FROM ingresos_egresos WHERE destino = '{destino}'"""
+
+    resu = conn.execute(q)
+
+    if resu.fetchone():
+        print("ya existe")   
+
+    for fila in resu:
+        print(fila)
+    
     conn.close()
 
 
@@ -90,7 +120,6 @@ def iniciar():
                      nombre   TEXT,
                      apellido TEXT  NOT NULL,
                      movil    TEXT  NOT NULL
-
            );'''
 
     conn.execute(qry)
@@ -102,7 +131,6 @@ def iniciar():
                      fechahora_in TEXT  NOT NULL,
                      fechahora_out TEXT,
                      destino TEXT
-
            );'''
 
     conn.execute(qry)
@@ -113,7 +141,6 @@ if __name__ == '__main__':
 
     """
     p = Persona('28123456', 'Álavarez', 'Ana', '02352-456789')
-
     ingresa_visita(p)
     """
     
@@ -122,7 +149,6 @@ if __name__ == '__main__':
     apellido = input("Igrese apellido> ")
     nombre = input("nombre> ")
     movil = input("móvil > ")
-
     p = Persona(doc, apellido, nombre, movil)
     
     ingresa_visita(p)
