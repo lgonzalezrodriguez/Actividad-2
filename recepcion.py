@@ -37,7 +37,17 @@ def ingresa_visita(persona):
                         '{persona.movil}');"""
         print(q)
         conn.execute(q)
-        conn.commit()
+
+    destino = input("Ingrese destino: ")
+    fechahora_in = datetime.datetime.now().replace(microsecond=0).isoformat()
+    conn.commit()
+    q = f"""INSERT INTO ingresos_egresos (dni, fechahora_in , destino)
+            VALUES ('{persona.dni}',
+                    '{fechahora_in}',
+                    '{destino}');"""
+    print(q)
+    conn.execute(q)
+    conn.commit()
     conn.close()
     
 
